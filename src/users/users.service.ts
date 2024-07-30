@@ -8,15 +8,13 @@ import { hashPassword } from 'src/utils/helpers';
 
 @Injectable()
 export class UsersService implements IUserService {
-  
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
   ) {}
 
   async createUser(userDetails: CreateUserDetails) {
+    console.log('userDetails', userDetails);
 
-    console.log("userDetails", userDetails);
-    
     const existingUser = await this.userRepository.findOneBy({
       email: userDetails.email,
     });
@@ -35,6 +33,10 @@ export class UsersService implements IUserService {
   }
 
   async findUser(findUserParams: FindUserParams): Promise<User> {
-    return this.userRepository.findOneBy({ email: findUserParams.email });
+    const user = await this.userRepository.findOneBy({
+      email: findUserParams.email,
+    });
+
+    return user;
   }
 }
