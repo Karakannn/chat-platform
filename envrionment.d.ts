@@ -6,5 +6,6 @@ declare namespace NodeJS {
     DATABASE_USER: string;
     DATABASE_PASSWORD: string;
     DATABASE_NAME: string;
+    COOKIE_sECRET: string
   }
 }
