@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PassportModule } from '@nestjs/passport';
 import { DataSource } from 'typeorm';
 import { entities } from './utils/typeorm';
+import { ConversationsModule } from './conversations/conversations.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { entities } from './utils/typeorm';
       synchronize: true,
       entities,
     }),
+    ConversationsModule,
   ],
   controllers: [],
 })
