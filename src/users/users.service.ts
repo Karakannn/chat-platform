@@ -13,8 +13,6 @@ export class UsersService implements IUserService {
   ) {}
 
   async createUser(userDetails: CreateUserDetails) {
-    console.log('userDetails', userDetails);
-
     const existingUser = await this.userRepository.findOneBy({
       email: userDetails.email,
     });
@@ -33,10 +31,15 @@ export class UsersService implements IUserService {
   }
 
   async findUser(findUserParams: FindUserParams): Promise<User> {
-    const user = await this.userRepository.findOneBy({
-      email: findUserParams.email,
+    const user = await this.userRepository.findOne({
+      where: findUserParams,
+      relations: ['participant'],
     });
 
     return user;
+  }
+
+  async saveUser(user: User) {
+    return this.userRepository.save(user);
   }
 }

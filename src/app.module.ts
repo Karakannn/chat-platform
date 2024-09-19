@@ -7,12 +7,15 @@ import { PassportModule } from '@nestjs/passport';
 import { DataSource } from 'typeorm';
 import { entities } from './utils/typeorm';
 import { ConversationsModule } from './conversations/conversations.module';
+import { ParticipantsModule } from './participants/participants.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ envFilePath: '.env.development' }),
     AuthModule,
     UsersModule,
+    ConversationsModule,
+    ParticipantsModule,
     PassportModule.register({ session: true }),
     TypeOrmModule.forRoot({
       type: 'mysql',
@@ -24,7 +27,6 @@ import { ConversationsModule } from './conversations/conversations.module';
       synchronize: true,
       entities,
     }),
-    ConversationsModule,
   ],
   controllers: [],
 })

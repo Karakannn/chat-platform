@@ -3,6 +3,8 @@ import { AuthenticatedGuard } from 'src/auth/utils/guards';
 import { Routes, Services } from 'src/utils/constants';
 import { IConversationsService } from './conversations';
 import { createConversationDto } from './dtos/create-conversation.dto';
+import { AuthUser } from 'src/utils/decorators';
+import { User } from 'src/utils/typeorm';
 
 @Controller(Routes.CONVERSATIONS)
 @UseGuards(AuthenticatedGuard)
@@ -13,7 +15,10 @@ export class ConversationsController {
   ) {}
 
   @Post()
-  createConversation(@Body() payload: createConversationDto) {
-    this.conversationsService.createConversation(payload);
+  async createConversation(
+    @AuthUser() user: User,
+    @Body() payload: createConversationDto,
+  ) {
+    return this.conversationsService.createConversation(user, payload);
   }
 }
